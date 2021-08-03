@@ -1,0 +1,6 @@
+while True:
+    try: #try 함수 밑에 종속 문장을 실행
+        x, y = map(int, input().split())
+        print(x+y)
+    except: #try에 있는 종속문장을 제외한 모든 경우에 break
+        break
