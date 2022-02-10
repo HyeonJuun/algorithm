@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int main() {
+	int x, check =0, min =100000;
+	cin >> x;
+	vector <int> ans;
+	for (int i = 0; i < (int)(x / 5) + 1; i++)
+	{
+		int n = x - 5 * i;
+		if (n % 3 != 0)
+		{
+			continue;
+		}
+		else
+		{
+			check = 1;
+			ans.push_back(i + n / 3);
+		}
+	}
+	if (!check)
+	{
+		cout << -1 << endl;
+		return 0;
+	}
+	for (int i = 0; i < ans.size(); i++)
+	{
+		if (min >= ans[i])
+		{
+			min = ans[i];
+		}
+	}
+	cout << min << endl;
+	return 0;
+}
