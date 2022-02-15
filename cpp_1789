@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long s;
+    int cnt = 0;
+    long long sum = 0;
+
+    cin >> s;
+    for (int i = 1; sum < s; i++)
+    {
+        sum += i;
+        if (sum > s)
+            break;
+        cnt++;
+    }
+    cout << cnt << endl;
+    return 0;
+}
