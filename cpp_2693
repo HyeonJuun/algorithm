@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+    int n;
+    vector<int> a;
+    vector<int> ans;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        a.clear();
+        for (int j = 0; j<10; j++)
+        {
+            int x;
+            cin >> x;
+            a.push_back(x);
+        }
+        sort(a.begin(), a.end());
+        reverse(a.begin(), a.end());
+
+        ans.push_back(a[2]);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << ans[i] << endl;
+    }
+
+    return 0;
+}
