@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+	int N, M;
+	cin >> N >> M;
+	vector<int> price;
+	vector<int> eprice;
+	
+	for (int i = 0; i < M; i++) {
+		int p;
+		cin >> p;
+		price.push_back(p);
+	}
+
+	for (int i = 0; i < M; i++) {
+		int cnt = 0;
+		for (int j = 0; j < M; j++) {
+			if (price[i] <= price[j]) cnt++;
+		}
+		if (cnt > N) cnt = N;
+		eprice.push_back(price[i] * cnt);
+	}
+    
+	int n = 0;
+	int max = eprice[0];
+	for (int i = 0; i < M; i++) {
+		if (max < eprice[i]) {
+			max = eprice[i];
+			n = price[i];
+		}
+	}
+	cout << n << " " << max;
+	return 0;
+}
