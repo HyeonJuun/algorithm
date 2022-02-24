@@ -1,6 +1,10 @@
 # Baekjoon Online Judge
 
 - Bronze
+  - 16진수
+    - [[문제](https://www.acmicpc.net/problem/1550)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1550)]
+    - 난이도 : Bronze 5
+    - 유형 : 구현, 수학
   - 단어의 개수
     - [[문제](https://www.acmicpc.net/problem/1152)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1152)]
     - 난이도 : Bronze 2
@@ -14,6 +18,14 @@
     - 난이도 : Bronze 1
     - 유형 : 수학, 다이나믹 프로그래밍
 - Silver
+  - 3의 배수
+    - [[문제](https://www.acmicpc.net/problem/1769)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1769)]
+    - 난이도 : Silver 5
+    - 유형 : 구현, 문자열, 재귀
+  - 수들의 합
+    - [[문제](https://www.acmicpc.net/problem/1789)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1789)]
+    - 난이도 : Silver 5
+    - 유형 : 수학, 그리디 알고리즘
   - 다리 놓기
     - [[문제](https://www.acmicpc.net/problem/1010)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1010)]
     - 난이도 : Silver 5
@@ -30,6 +42,14 @@
     - [[문제](https://www.acmicpc.net/problem/1312)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1312)]
     - 난이도 : Silver 5
     - 유형 : 수학
+  - 뒤집기
+    - [[문제](https://www.acmicpc.net/problem/1439)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1439)]
+    - 난이도 : Silver 5
+    - 유형 : 문자열, 그리디 알고리즘
+  - 방번호
+    - [[문제](https://www.acmicpc.net/problem/1475)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1475)]
+    - 난이도 : Silver 5
+    - 유형 : 구현
   - 막대기
     - [[문제](https://www.acmicpc.net/problem/1094)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1094)]
     - 난이도 : Silver 5
@@ -50,6 +70,10 @@
     - [[문제](https://www.acmicpc.net/problem/1244)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1244)]
     - 난이도 : Silver 3
     - 유형 : 구현, 시뮬레이션
+  - 타일 위의 원
+    - [[문제](https://www.acmicpc.net/problem/1709)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1709)]
+    - 난이도 : Silver 3
+    - 유형 : 기하학, 피타고라스 정리
   - 피보나치 함수
     - [[문제](https://www.acmicpc.net/problem/1003)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1003)]
     - 난이도 : Silver 3
