@@ -1,1 +1,38 @@
-# backjoon
+# Baekjoon Online Judge
+
+- Bronze
+  
+- Silver
+  - 터렛
+    - [[문제](https://www.acmicpc.net/problem/1002)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1002)]
+    - 난이도 : Silver 4
+    - 유형 : 수학, 기하학
+  - 피보나치 함수
+    - [[문제](https://www.acmicpc.net/problem/1003)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1003)]
+    - 난이도 : Silver 3
+    - 유형 : 다이나믹 프로그래밍
+  - 다리 놓기
+    - [[문제](https://www.acmicpc.net/problem/1010)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1010)]
+    - 난이도 : Silver 5
+    - 유형 : 다이나믹 프로그래밍
+  - 보물
+    - [[문제](https://www.acmicpc.net/problem/1026)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1026)]
+    - 난이도 : Silver 4
+    - 유형 : 수학, 그리디 알고리즘, 정렬
+  - 약수
+    - [[문제](https://www.acmicpc.net/problem/1037)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1037)]
+    - 난이도 : Silver 5
+    - 유형 : 수학, 정수론
+  - 물병
+    - [[문제](https://www.acmicpc.net/problem/1052)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1052)]
+    - 난이도 : Silver 1
+    - 유형 : 수학, 구현, 그리디 알고리즘, 시뮬레이션, 비트마스킹
+  - 막대기
+    - [[문제](https://www.acmicpc.net/problem/1094)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1094)]
+    - 난이도 : Silver 5
+    - 유형 : 수학, 비트 마스킹
+  - 팔
+    - [[문제](https://www.acmicpc.net/problem/1105)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1105)]
+    - 난이도 : Silver 1
+    - 유형 : 수학, 그리디 알고리즘  
+ - Gold
