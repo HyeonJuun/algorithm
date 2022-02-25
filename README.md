@@ -66,6 +66,10 @@
     - [[문제](https://www.acmicpc.net/problem/1026)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1026)]
     - 난이도 : Silver 4
     - 유형 : 수학, 그리디 알고리즘, 정렬
+  - 지뢰
+    - [[문제](https://www.acmicpc.net/problem/2232)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_2232)]
+    - 난이도 : Silver 3
+    - 유형 : 구현, 그리디 알고리즘
   - 스위치 켜고 끄기
     - [[문제](https://www.acmicpc.net/problem/1244)] [[코드](https://github.com/HyeonJuun/backjoon/blob/main/cpp_1244)]
     - 난이도 : Silver 3
