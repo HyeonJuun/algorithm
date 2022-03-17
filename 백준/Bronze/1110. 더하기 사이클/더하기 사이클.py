@@ -1,0 +1,14 @@
+x = int(input(""))
+cnt = 0
+num1 = x
+
+while True:
+    a = num1//10
+    b = num1%10
+    c = (a + b) % 10
+    num1 = 10*b + c
+    cnt+=1
+    if num1 == x:
+        break
+print(cnt)
+    
