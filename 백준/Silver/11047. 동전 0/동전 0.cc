@@ -1,32 +1,38 @@
 #include <iostream>
+#include <string>
 #include <algorithm>
-#include<queue>
-#include<cstring>
-#include<string>
+#include <vector>
+#include <cstring>
+#include <queue>
 
 using namespace std;
 
-const int MAX = 1000 + 1;
+const int MAX = 10001;
 
-int n, k, ans = 0, x;
-int dp[MAX];
-int arr[MAX];
-vector<int> v;
+int n, k, ans = 0;
 
 int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	
 	cin >> n >> k;
+	vector<int> coin;
 	for (int i = 0; i < n; i++)
 	{
-		cin >> x;
-		v.push_back(x);
+		int x; cin >> x;
+		coin.push_back(x);
 	}
-	sort(v.begin(), v.end(), greater<>());
-
-	for (int i = 0; i < n; i++)
+	for (int i = coin.size() - 1; i >= 0; i--)
 	{
-		ans += k / v[i];
-		k = k % v[i];
+		if (k == 0)
+			break;
+		if (k >= coin[i])
+		{
+			ans += (k / coin[i]);
+			k = k % coin[i];
+		}
 	}
-	cout << ans << endl;
+	cout << ans << '\n';
 	return 0;
 }
