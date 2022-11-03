@@ -1,34 +1,32 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<queue>
-#include<stack>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+#include <queue>
 
 using namespace std;
 
-const int MAX = 1000000000 + 1;
+const long long MAX = 1000000000 + 1;
 
-int main()
-{
+long long n, k;
+
+
+int main() {
+	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
-	ios::sync_with_stdio(false);
-	long long k, n;
-	vector<long long>  v;
 	cin >> k >> n;
-	long long maxn = 0;
+	vector<long long> v(k);
+	long long maxN = 0;
 	for (int i = 0; i < k; i++)
 	{
-		int x;
-		cin >> x;
-		v.push_back(x);
-		if (x >= maxn)
-			maxn = x;
-
+		cin >> v[i];
+		if (maxN < v[i])
+			maxN = v[i];
 	}
-	long long ans = 0;
-	long long left = 1;
-	long long right = maxn;
+	long long ans = 0, left = 1, right = maxN;
+
 	while (left <= right)
 	{
 		long long mid = (left + right) / 2;
@@ -44,8 +42,8 @@ int main()
 		}
 		else
 			right = mid - 1;
+		
 	}
-	cout << ans << endl;
+	cout << ans << '\n';
 	return 0;
-
 }
