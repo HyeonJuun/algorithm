@@ -46,8 +46,7 @@ void solve(int dep, int ind)
 
 		if (selected[i] == true)
 			continue;
-		if (chicken.size() - i < m - dep)
-			return;
+
 
 		selected[i] = true;
 		chosen.push_back({ chicken[i].first, chicken[i].second });
