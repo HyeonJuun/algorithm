@@ -1,36 +1,49 @@
-#include <stdio.h>
-#define max(x,y) (x > y ? x : y)
-#define min(x,y) (x < y ? x : y)
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+#include <queue>
+#include <cmath>
 
-int max_arr[2][3];
-int min_arr[2][3];
+using namespace std;
 
-int main(){
-	int n;
-	int x,y,z;
-	int	k = 0;
-	int ans1,ans2;
-	
-	scanf("%d",&n);
-	
-	for(int i=0;i<n;i++){		
-		scanf("%d %d %d",&x,&y,&z);
-		
-		max_arr[k][0] = max(max_arr[1-k][0],max_arr[1-k][1]) + x;
-		max_arr[k][1] = max(max(max_arr[1-k][0],max_arr[1-k][1]),max_arr[1-k][2]) + y;
-		max_arr[k][2] = max(max_arr[1-k][1],max_arr[1-k][2]) + z;
-		
-		min_arr[k][0] = min(min_arr[1-k][0],min_arr[1-k][1]) + x;
-		min_arr[k][1] = min(min(min_arr[1-k][0],min_arr[1-k][1]),min_arr[1-k][2]) + y;
-		min_arr[k][2] = min(min_arr[1-k][1],min_arr[1-k][2]) + z;
-		
+const int MAX = 100000 + 1;
+
+int n;
+
+int dp_max[2][3] = { 0 };
+int dp_min[2][3];
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	cin >> n;
+	int x, y, z;
+	int ans_max, ans_min;
+
+	// 문제는 메모리가 작으니 배열을 n행 3열을 두는 것이 아니라
+	// 어차피 아래로 내려가면서 더할 것이니 2개를 두고 그 두개를 반복해서 사용할 수 도 있다는 것에서 시작
+	// 따라서 k는 0과 1을 반복하면서 배열을 채워나갈 것임
+	int k = 0;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> x >> y >> z;
+		dp_max[k][0] = max(dp_max[1 - k][0], dp_max[1 - k][1]) + x;
+		dp_max[k][1] = max(dp_max[1 - k][0], max(dp_max[1 - k][1], dp_max[1 - k][2])) + y;
+		dp_max[k][2] = max(dp_max[1 - k][1], dp_max[1 - k][2]) + z;
+
+		dp_min[k][0] = min(dp_min[1 - k][0], dp_min[1 - k][1]) + x;
+		dp_min[k][1] = min(dp_min[1 - k][0], min(dp_min[1 - k][1], dp_min[1 - k][2])) + y;
+		dp_min[k][2] = min(dp_min[1 - k][1], dp_min[1 - k][2]) + z;
+
 		k = 1 - k;
 	}
-	
-	ans1 = max(max(max_arr[1-k][0],max_arr[1-k][1]),max_arr[1-k][2]);
-	ans2 = min(min(min_arr[1-k][0],min_arr[1-k][1]),min_arr[1-k][2]);
-	
-	printf("%d %d",ans1,ans2);
-	
+
+	ans_max = max(dp_max[1 - k][0], max(dp_max[1 - k][1], dp_max[1 - k][2]));
+	ans_min = min(dp_min[1 - k][0], min(dp_min[1 - k][1], dp_min[1 - k][2]));
+
+	cout << ans_max << " " << ans_min ;
 	return 0;
 }
