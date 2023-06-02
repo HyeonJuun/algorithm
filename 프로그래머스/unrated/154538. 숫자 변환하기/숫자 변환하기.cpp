@@ -1,51 +1,49 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <queue>
 #include <set>
 
 using namespace std;
-int answer = 0;
+
 
 int solution(int x, int y, int n) {
-    set<int> st;
+    int answer = 987654321;
+    bool flag = false;
+    set<int> ck_num;
     queue<pair<int, int>> q;
-    
-    if(x == y)
-        return 0;
-    st.insert(x);
     q.push({x, 0});
+    
     while(!q.empty())
     {
         int curx = q.front().first;
-        int cnt = q.front().second;
+        int dist = q.front().second;
         q.pop();
-        
         if(curx == y)
         {
-            answer = cnt;
+            answer = dist;
             break;
         }
-        else if(curx < y)
+        if(curx < y)
         {
-            if(st.find(curx * 2) == st.end())
+            if(ck_num.find(curx + n) == ck_num.end())
             {
-                st.insert(curx * 2);
-                q.push({curx * 2, cnt + 1});
+                q.push({curx + n, dist + 1});
+                ck_num.insert(curx + n);  
             }
-            if(st.find(curx * 3) == st.end())
+            if(ck_num.find(curx * 2) == ck_num.end())
             {
-                st.insert(curx * 3);
-                q.push({curx * 3, cnt + 1});
+                q.push({curx * 2, dist + 1});
+                ck_num.insert(curx * 2);
             }
-            if(st.find(curx + n) == st.end())
+            if(ck_num.find(curx * 3) == ck_num.end())
             {
-                st.insert(curx + n);
-                q.push({curx + n, cnt + 1});
-            }  
+                q.push({curx * 3, dist + 1});
+                ck_num.insert(curx * 3);            
+            }
         }
+        
     }
-    if(answer == 0)
+    if(answer == 987654321)
         answer = -1;
     return answer;
 }
