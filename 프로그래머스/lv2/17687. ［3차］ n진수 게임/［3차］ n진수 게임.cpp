@@ -24,11 +24,11 @@ string solution(int n, int t, int m, int p) {
     string answer = "";
     string Result = "";
     int cnt = 0;
-    for (int i = 0; i < t * m; i++) 
+    for (int i = 0; i < t * m ; i++) 
     {
         Result += ChangeNum(i, n);
-        //cout << Result << endl;
     }
+    
     for (int i = p - 1; i < Result.length(); i += m)
     {
         answer += Result[i];
