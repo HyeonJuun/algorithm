@@ -9,12 +9,10 @@ int answer = 0;
 
 int solution(int n, int k, vector<int> enemy) {
     
-    priority_queue <int> pq;
+    priority_queue<int> pq;
     
-    int sz = enemy.size();
-    int i =0;
-    
-    for( ;i<sz; i++)
+    int i=0;
+    for(; i<enemy.size(); i++)
     {
         if(n >= enemy[i])
         {
@@ -23,18 +21,19 @@ int solution(int n, int k, vector<int> enemy) {
         }
         else
         {
-            if(k ==0)
+            if(k == 0)
+            {
                 break;
-            if(!pq.empty() & (pq.top() > enemy[i]))
+            }
+            if(!pq.empty() && pq.top() > enemy[i])
             {
                 n += pq.top();
                 pq.pop();
-                n -= enemy[i];
                 pq.push(enemy[i]);
+                n -= enemy[i];
             }
             k--;
         }
     }
-    
     return i;
 }
