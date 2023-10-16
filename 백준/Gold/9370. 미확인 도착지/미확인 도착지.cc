@@ -8,22 +8,25 @@ using namespace std;
 
 const int MAX = 2010;
 const int INF = 2e9;
-int T, n, m, t;
+
+int T;
+int n, m, t;
 int s, g, h;
 int a, b, d;
-int x;
-
 vector<pair<int, int>> graph[MAX];
-vector<int> answer;
-vector<int> Xvector;
 
+vector<int> v;
 int distS[MAX];
 int distG[MAX];
 int distH[MAX];
 
-void Dijkstra(int start, int dist[MAX])
+void memclear()
 {
-    priority_queue<pair<int, int>, vector< pair<int, int>>, greater< pair<int, int>>> pq;
+    
+}
+void dijkstra(int start, int dist[MAX])
+{
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater< pair<int, int>>> pq;
 
     pq.push({ 0, start });
     dist[start] = 0;
@@ -36,7 +39,6 @@ void Dijkstra(int start, int dist[MAX])
 
         if (dist[cur] != cost)
             continue;
-
         for (int i = 0; i < graph[cur].size(); i++)
         {
             int nxt = graph[cur][i].first;
@@ -52,49 +54,48 @@ void Dijkstra(int start, int dist[MAX])
 int main() {
     
     cin >> T;
+
     while (T--)
     {
         for (int i = 0; i < MAX; i++)
         {
-            graph[i].clear();
             distS[i] = INF;
             distG[i] = INF;
-            distH[i] = INF;
-        }
-        Xvector.clear();
 
+            distH[i] = INF;
+            graph[i].clear();
+        }
+        v.clear();
         cin >> n >> m >> t;
         cin >> s >> g >> h;
+        
         for (int i = 0; i < m; i++)
         {
-            int a1, a2, a3;
-            cin >> a1 >> a2 >> a3;
-            graph[a1].push_back({ a2, a3 });
-            graph[a2].push_back({ a1, a3 });
+            cin >> a >> b >> d;
+            graph[a].push_back({ b, d });
+            graph[b].push_back({ a, d });
         }
         for (int i = 0; i < t; i++)
         {
-            cin >> x;
-            Xvector.push_back(x);
+            int x;   cin >> x;
+            v.push_back(x);
         }
-
-        Dijkstra(s, distS);
-        Dijkstra(g, distG);
-        int distGH = distG[h];
-
-        Dijkstra(h, distH);
-        sort(Xvector.begin(), Xvector.end());
-
-        for (int i = 0; i < Xvector.size(); i++)
+        sort(v.begin(), v.end());
+        dijkstra(s, distS);
+        dijkstra(g, distG);
+        dijkstra(h, distH);
+        
+        for (int i = 0; i < v.size(); i++)
         {
-            int goal = Xvector[i];
-            if (distS[goal] == distS[g] + distGH + distH[goal])
+            int goal = v[i];
+            
+            if (distS[goal] == distS[g] + distG[h] + distH[goal])
                 cout << goal << " ";
-            else if (distS[goal] == distS[h] + distGH + distG[goal])
+            else if(distS[goal] == distS[h] + distH[g] + distG[goal])
                 cout << goal << " ";
+
         }
         cout << endl;
     }
-   
     return 0;
 }
