@@ -9,19 +9,6 @@ using namespace std;
 vector<int> connected[1001];
 bool visited[1001] = { false, };
 
-void dfs(int start)
-{
-	visited[start] = true;
-	for (int i = 0; i < connected[start].size(); i++)
-	{
-		int next = connected[start][i];
-		if (!visited[next])
-		{
-			dfs(next);
-		}
-	}
-}
-
 void bfs(int start)
 {
 	queue<int> q;
@@ -61,11 +48,8 @@ int main()
 		{
 			ans++;
 			bfs(i);
-			//dfs(i);
 		}
 	}
 	cout << ans << endl;
 	return 0;
 }
-
-
