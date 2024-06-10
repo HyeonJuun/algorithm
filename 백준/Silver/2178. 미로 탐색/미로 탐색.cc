@@ -1,65 +1,63 @@
-#include<iostream>
-#include<algorithm>
-#include<queue>
-#include<vector>
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+#include <queue>
+
+#define MAX 100 + 1
+
 using namespace std;
 
-const int MAX = 102;
+int n, m, answer;
+char map[MAX][MAX];
+bool visited[MAX][MAX];
 
-int dx[4] = { -1, 1, 0, 0 };
-int dy[4] = { 0, 0, -1, 1 };
+int dx[] = {0, 0, -1, 1};
+int dy[] = {1, -1, 0, 0};
 
-int map[MAX][MAX] = { 0, };
-bool visited[MAX][MAX] = { false, };
-int dist[MAX][MAX] = { 0, };
-queue<pair<int, int> > q;
-
-int n, m, k;
-void bfs(int y, int x)
+void solve()
 {
-	q.push(make_pair(y, x));
-	visited[y][x] = true;
-	dist[y][x] ++;
+    queue<pair<pair<int, int>, int>> q;
+    q.push({{0, 0}, 1});
+    visited[0][0] = true;
 
-	while (!q.empty())
-	{
-		y = q.front().first;
-		x = q.front().second;
-		q.pop();
+    while (!q.empty())
+    {
+        int curx = q.front().first.first;
+        int cury = q.front().first.second;
+        int cost = q.front().second;
+        q.pop();
 
-		for (int i = 0; i < 4; i++)
-		{
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-			if (nx<0 || ny<0 || nx>m || ny >n)
-				continue;
-			if (map[ny][nx] == 1 && visited[ny][nx] == 0)
-			{
-				visited[ny][nx] = true;
-				q.push(make_pair(ny, nx));
-				dist[ny][nx] = dist[y][x] + 1;
-			}
-		}		
-		
-	}
-	
+        if (curx == n - 1 && cury == m - 1)
+        {
+            cout << cost << endl;
+            return;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = curx + dx[i];
+            int ny = cury + dy[i];
+
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m || map[nx][ny] == '0')
+                continue;
+
+            if (!visited[nx][ny])
+            {
+                q.push({{nx, ny}, cost + 1});
+                visited[nx][ny] = true;
+            }
+        }
+    }
 }
-
 int main()
 {
-	cin >> n >> m;
-	for(int i=0; i<n;i++)
-	{
-		string str;
-		cin >> str;
-		for (int j = 0; j < m; j++)
-		{
-			map[i][j] = str[j] - '0';
-		}
-	}
+    cin >> n >> m;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> map[i];
+    }
+    solve();
 
-	bfs(0, 0);
-
-	cout << dist[n-1][m-1] << endl;
-	return 0;
+    return 0;
 }
