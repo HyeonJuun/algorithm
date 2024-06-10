@@ -1,86 +1,91 @@
-#include<iostream>
-#include<algorithm>
-#include<queue>
-#include<vector>
-#include<cstring>
+#include <iostream>
+#include <cstring>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+#include <queue>
+
+#define MAX 100 + 1
 
 using namespace std;
 
-const int MAX = 501;
+int n;
+vector<int> answer;
+int map[MAX][MAX];
+bool visited[MAX][MAX];
 
-int dx[4] = { -1, 1, 0, 0 };
-int dy[4] = { 0, 0, -1, 1 };
+int dx[] = {0, 0, -1, 1};
+int dy[] = {1, -1, 0, 0};
 
-int map[MAX][MAX] = { 0, };
-
-bool visited[MAX][MAX] = { false, };
-
-queue<pair<int, int> > q;
-vector<int> v;
-
-int n, m, k, cnt = 0, ans = 0;
-void bfs(int y, int x)
+int solve(int x, int y)
 {
-	q.push(make_pair(y, x));
-	visited[y][x] = true;
+    int cnt = 1;
+    queue<pair<int, int>> q;
+    q.push({x, y});
+    visited[x][y] = true;
+    // cout << "x : " << x << " y : " << y << endl;
+    while (!q.empty())
+    {
+        int curx = q.front().first;
+        int cury = q.front().second;
+        q.pop();
 
-	cnt = 1;
-	while (!q.empty())
-	{
-		y = q.front().first;
-		x = q.front().second;
-		q.pop();
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = curx + dx[i];
+            int ny = cury + dy[i];
 
-		for (int i = 0; i < 4; i++)
-		{
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-			if (nx < 0 || ny < 0 || nx >= n || ny >= n)
-				continue;
-			if (map[ny][nx] == 1 && visited[ny][nx] == 0)
-			{
-				visited[ny][nx] = true;
-				q.push(make_pair(ny, nx));
-				cnt++;
-			}
-		}
-	}
-	v.push_back(cnt);
+            if (nx < 0 || ny < 0 || nx >= n || ny >= n || map[nx][ny] == 0)
+                continue;
+
+            if (!visited[nx][ny])
+            {
+                q.push({nx, ny});
+                visited[nx][ny] = true;
+                cnt++;
+            }
+        }
+    }
+    return cnt;
 }
-
 int main()
 {
-	cin >> n;
-	for (int i = 0; i < n; i++)
-	{
-		string s;
-		cin >> s;
-		for (int j = 0; j < s.length(); j++)
-		{
-			map[i][j] = s[j] - '0';
-		}
-	}
-
-	
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			if (!visited[i][j] && map[i][j])
-			{
-				cnt = 1;
-				bfs(i, j);
-				ans++;
-			}
-		}
-	}
-		cout << ans << endl;
-		sort(v.begin(), v.end());
-		for (int i = 0; i < v.size(); i++)
-		{
-			cout << v[i] << endl;
-
-		}
-
-	return 0;
+    cin >> n;
+    int land_cnt = 0;
+    for (int i = 0; i < n; i++)
+    {
+        string str = "";
+        cin >> str;
+        for (int j = 0; j < n; j++)
+        {
+            map[i][j] = str[j] - '0';
+        }
+    }
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     for (int j = 1; j <= m; j++)
+    //     {
+    //         cout << map[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (!visited[i][j] && map[i][j] == 1)
+            {
+                int x = solve(i, j);
+                answer.push_back(x);
+                land_cnt++;
+            }
+        }
+    }
+    sort(answer.begin(), answer.end());
+    cout << land_cnt << endl;
+    for (int i = 0; i < answer.size(); i++)
+    {
+        cout << answer[i] << endl;
+    }
+    return 0;
 }
