@@ -1,61 +1,84 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 #include <algorithm>
+#include <stack>
+#include <queue>
 #include <cstring>
+#include <cmath>
+#include <set>
 using namespace std;
-const int INF = 987654321;
-int N, E, v1, v2, res = INF;
-int sToV1, sToV2, V1ToV2, V1ToN, V2ToN;
-vector<pair<int, int>> v[801]; // v[a] = (b,c) : a에서 b까지 c의 거리로 이동 가능
-int dist[801];
 
-void dijk(int start)
+#define MAX 800 + 10
+#define INF 987654321
+
+int n, e;
+int a, b, c;
+vector<pair<int, int>> g[MAX];
+int v1, v2;
+int answer = INF;
+int cost[MAX];
+
+void solve(int start)
 {
-	for (int i = 0; i <= N; i++) dist[i] = INF;
-	dist[start] = 0;
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
-	q.push({ 0,start }); // 현재까지 거리, 현재 위치
-	while (!q.empty()) {
-		int cur = q.top().second;
-		int curDist = q.top().first;
-		q.pop();
-		for (int i = 0; i < v[cur].size(); i++) {
-			int next = v[cur][i].first;
-			int nextDist = v[cur][i].second;
-			if (dist[next] > curDist + nextDist) {
-				dist[next] = curDist + nextDist;
-				q.push({ dist[next],next });
-			}
-		}
-	}
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    for (int i = 0; i <= n; i++)
+        cost[i] = INF;
+
+    pq.push({0, start});
+    cost[start] = 0;
+
+    while (!pq.empty())
+    {
+        int cur = pq.top().second;
+        int dist = pq.top().first;
+        pq.pop();
+
+        if (cost[cur] != dist)
+            continue;
+
+        for (int i = 0; i < g[cur].size(); i++)
+        {
+            int nxt = g[cur][i].first;
+            int ndist = g[cur][i].second;
+
+            if (cost[nxt] > dist + ndist)
+            {
+                cost[nxt] = dist + ndist;
+                pq.push({cost[nxt], nxt});
+            }
+        }
+    }
 }
 
 int main()
 {
-	cin >> N >> E;
-	while (E--) {
-		int a, b, c;
-		cin >> a >> b >> c;
-		v[a].push_back({ b,c });
-		v[b].push_back({ a,c });
-	}
-	cin >> v1 >> v2;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> n >> e;
+    for (int i = 0; i < e; i++)
+    {
+        cin >> a >> b >> c;
+        g[a].push_back({b, c});
+        g[b].push_back({a, c});
+    }
+    cin >> v1 >> v2;
 
-	dijk(1);
-	sToV1 = dist[v1];
-	sToV2 = dist[v2];
+    solve(1);
+    int sToV1 = cost[v1];
+    int sToV2 = cost[v2];
 
-	dijk(v1);
-	V1ToV2 = dist[v2];
-	V1ToN = dist[N];
+    solve(v1);
+    int v1Tov2 = cost[v2];
+    int v1ToN = cost[n];
 
-	dijk(v2);
-	V2ToN = dist[N];
+    solve(v2);
+    int v2ToN = cost[n];
 
-
-	res = min(res, sToV1 + V1ToV2 + V2ToN);
-	res = min(res, sToV2 + V1ToV2 + V1ToN);
-	if (V1ToV2 == INF || res == INF) cout << -1;
-	else cout << res;
+    answer = min(answer, sToV1 + v1Tov2 + v2ToN);
+    answer = min(answer, sToV2 + v1Tov2 + v1ToN);
+    if (v1Tov2 == INF || answer == INF)
+        answer = -1;
+    cout << answer << endl;
+    return 0;
 }
