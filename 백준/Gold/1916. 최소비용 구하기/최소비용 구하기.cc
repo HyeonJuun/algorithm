@@ -1,56 +1,72 @@
-#include<iostream>
-#include<algorithm>
-#include <queue>
+#include <iostream>
 #include <vector>
-
+#include <algorithm>
+#include <stack>
+#include <queue>
+#include <cstring>
+#include <cmath>
+#include <set>
 using namespace std;
 
-const int INF = 2e9;
+#define MAX 1000 + 10
+#define INF 987654321
+
 int n, m;
 int a, b, c;
+vector<pair<int, int>> v[MAX];
+int dist[MAX];
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+int st, ed;
 
-vector<pair<int, int>> graph[1010];
-
-int dist[1010];
-
-int main() {
-    
-    cin >> n >> m;
-    
-    for (int i = 0; i < m; i++)
-    {
-        cin >> a >> b >> c;
-        graph[a].push_back({ b, c });
-    }
-    cin >> a >> b;
-    priority_queue < pair<int, int>, vector< pair<int, int>>, greater< pair<int, int>>> pq;
-
-    for (int i = 1; i <= n; i++)
-        dist[i] = INF;
-
-    dist[a] = 0;
-    pq.push({ 0, a });
+void solve()
+{
+    pq.push({0, st});
+    dist[st] = 0;
 
     while (!pq.empty())
     {
         int cur = pq.top().second;
-        int d = pq.top().first;
+        int cost = pq.top().first;
         pq.pop();
 
-        if (dist[cur] != d)
+        if (dist[cur] != cost)
             continue;
 
-        for (int i = 0; i < graph[cur].size(); i++)
+        for (int i = 0; i < v[cur].size(); i++)
         {
-            int nxt = graph[cur][i].first;
-            
-            if (dist[nxt] > dist[cur] + graph[cur][i].second)
+            int nxt = v[cur][i].first;
+            int nxcost = v[cur][i].second;
+
+            if (dist[nxt] > nxcost + cost)
             {
-                dist[nxt] = dist[cur] + graph[cur][i].second;
-                pq.push({ dist[nxt], nxt });
+                dist[nxt] = nxcost + cost;
+                pq.push({dist[nxt], nxt});
             }
         }
     }
-    cout << dist[b] << endl;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    cin >> n;
+    cin >> m;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> a >> b >> c;
+        v[a].push_back({b, c});
+        // v[b].push_back({a, c});
+    }
+    cin >> st >> ed;
+
+    for (int i = 1; i <= n; i++)
+    {
+        dist[i] = INF;
+    }
+    solve();
+
+    cout << dist[ed] << endl;
     return 0;
 }
