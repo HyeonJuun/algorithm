@@ -1,35 +1,37 @@
 #include <iostream>
+#include <queue>
 #include <vector>
+#include <cstring>
 #include <algorithm>
-#include<stack>
-#include<deque>
-#include<queue>
+
+#define endl "\n"
+#define MAX 10000 + 10
 
 using namespace std;
 
-const int MAX = 100 + 1;
-
-
 int n, k;
+int arr[101], dp[MAX];
 
-int main() {
-	cin.sync_with_stdio(false);
-	cin.tie(NULL);
-	cin >> n >> k;
-	vector<int> v(n);
-	vector<int>dp(k + 1);
-	for (int i = 0; i < n; i++)
-	{
-		cin >> v[i];
-	}
-	dp[0] = 1;
-	for (int i = 0; i <n; i++)
-	{
-		for (int j = v[i]; j <= k; j++)
-		{
-			dp[j] += dp[j - v[i]];
-		}
-	}
-	cout << dp[k] << endl;
-	return 0;
+int main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> n >> k;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    dp[0] = 1;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = arr[i]; j <= k; j++)
+        {
+            dp[j] += dp[j - arr[i]];
+        }
+    }
+    cout << dp[k] << endl;
+    return 0;
 }
