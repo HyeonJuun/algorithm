@@ -1,56 +1,60 @@
 #include <iostream>
-#include <cstring>
-#include <cmath>
-#include <vector>
+#include <string>
 #include <algorithm>
-#include <map>
+#include <vector>
+#include <cstring>
 #include <queue>
 
-#define MAX 100000 + 1
-
+#define MAX 100000 + 10
+#define INF 2e9
 using namespace std;
 
 int n, m, k;
 bool answer = true;
-vector<int> v[MAX];
+int x, y;
+int a, b;
+
+vector<int> graph[MAX];
+int required[MAX];
 int inDegree[MAX];
-int
-    requires[
-        MAX];
 int constructed[MAX];
+
 int main()
 {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
     cin >> n >> m >> k;
     for (int i = 0; i < m; i++)
     {
-        int a, b;
-        cin >> a >> b;
-        v[a].push_back(b);
-        requires[b]++;
+        cin >> x >> y;
+        graph[x].push_back(y);
+        required[y]++;
     }
-
     for (int i = 0; i < k; i++)
     {
-        int a, b;
         cin >> a >> b;
-
         if (a == 1)
         {
-            if (inDegree[b] != requires[b])
+            if (inDegree[b] != required[b])
             {
                 answer = false;
                 break;
             }
-            constructed[b]++;
-            if (constructed[b] == 1)
+            else
             {
-                for (int nxt : v[b])
+                constructed[b]++;
+                if (constructed[b] == 1)
                 {
-                    inDegree[nxt]++;
+                    for (int nxt : graph[b])
+                    {
+                        inDegree[nxt]++;
+                    }
                 }
             }
         }
-        if (a == 2)
+        else
         {
             if (constructed[b] == 0)
             {
@@ -62,7 +66,7 @@ int main()
                 constructed[b]--;
                 if (constructed[b] == 0)
                 {
-                    for (int nxt : v[b])
+                    for (int nxt : graph[b])
                     {
                         inDegree[nxt]--;
                     }
@@ -70,7 +74,6 @@ int main()
             }
         }
     }
-
     if (answer)
         cout << "King-God-Emperor" << endl;
     else
