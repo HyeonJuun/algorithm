@@ -1,79 +1,83 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+#include <queue>
+#include <cmath>
+#define MAX 1000 + 10
+#define INF 2e9
 using namespace std;
 
-struct Edge {
-	int v1, v2, flag;
-};
+int n, m;
+int a, b, c;
+vector<pair<int, pair<int, int>>> graph;
+int par[MAX];
+int st_pos, tar_pos;
+long long mx, mn;
 
-const int MAX = 1001;
-int n, m, parent[MAX];
-vector<Edge> edges;
-
-bool compare1(const Edge& a, const Edge& b) {
-	return a.flag < b.flag;
+bool cmp1(pair<int, pair<int, int>> a, pair<int, pair<int, int>> b)
+{
+    return a.first < b.first;
 }
-
-bool compare2(const Edge& a, const Edge& b) {
-	return a.flag > b.flag;
+bool cmp2(pair<int, pair<int, int>> a, pair<int, pair<int, int>> b)
+{
+    return a.first > b.first;
 }
-
-
-void init(void) {
-	for (int i = 0; i < MAX; i++) parent[i] = i;
+int find(int x)
+{
+    if (par[x] == x)
+        return x;
+    else
+        return par[x] = find(par[x]);
 }
+void uni(int a, int b)
+{
+    int pa = find(a);
+    int pb = find(b);
 
-int Find(int a) {
-	if (a == parent[a])
-		return a;
-	return parent[a] = Find(parent[a]);
+    par[pb] = pa;
 }
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-void Union(int a, int b) {
-	int pa = Find(a), pb = Find(b);
-	parent[pa] = pb;
-}
-
-int main(void) {
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr);
-	cout.tie(nullptr);
-
-	cin >> n >> m;
-
-	for (int i = 0; i < m + 1; i++) {
-		int a, b, c;
-		cin >> a >> b >> c;
-		edges.push_back({a, b, c});
-	}
-
-	init();
-
-	sort(edges.begin(), edges.end(), compare1);
-
-	int ans1 = 0, ans2 = 0;
-	for (auto& edge : edges) {
-		if (Find(edge.v1) != Find(edge.v2)) {
-			Union(edge.v1, edge.v2);
-
-			if (!edge.flag)
-				ans1++;
-		}
-	}
-
-	init();
-
-	sort(edges.begin(), edges.end(), compare2);
-
-	for (auto& edge : edges) {
-		if (Find(edge.v1) != Find(edge.v2)) {
-			Union(edge.v1, edge.v2);
-
-			if (!edge.flag)
-				ans2++;
-		}
-	}
-
-	cout << (int)(pow(ans1, 2) - pow(ans2, 2)) << '\n';
-	return 0;
+    cin >> n >> m;
+    for (int i = 0; i < m + 1; i++)
+    {
+        cin >> a >> b >> c;
+        graph.push_back({c, {a, b}});
+    }
+    sort(graph.begin(), graph.end(), cmp1);
+    for (int i = 0; i <= n; i++)
+        par[i] = i;
+    for (int i = 0; i < graph.size(); i++)
+    {
+        st_pos = find(graph[i].second.first);
+        tar_pos = find(graph[i].second.second);
+        if (st_pos != tar_pos)
+        {
+            uni(st_pos, tar_pos);
+            if (!graph[i].first)
+                mn++;
+        }
+    }
+    sort(graph.begin(), graph.end(), cmp2);
+    for (int i = 0; i <= n; i++)
+        par[i] = i;
+    for (int i = 0; i < graph.size(); i++)
+    {
+        st_pos = find(graph[i].second.first);
+        tar_pos = find(graph[i].second.second);
+        if (st_pos != tar_pos)
+        {
+            uni(st_pos, tar_pos);
+            if (!graph[i].first)
+                mx++;
+        }
+    }
+    cout << mn * mn - mx * mx << endl;
+    return 0;
 }
